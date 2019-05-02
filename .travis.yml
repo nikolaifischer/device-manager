@@ -1,0 +1,36 @@
+sudo: required
+addons:
+  chrome: stable # Allows testing with headless chrome
+
+language: node_js
+node_js:
+  - "8"
+
+branches:
+  only:
+    - master # Only run for pushes on the master branch
+
+before_script:
+  - npm install -g @angular/cli
+  - npm install
+
+# Test & Build Steps
+script:
+  - ng test
+  # SKIPPED FOR NOW- ng e2e
+  - ng build --prod --aot
+
+# Deployment with AWS S3
+deploy:
+  provider: s3
+  # 1. Retrieve your Credentials from: https://console.aws.amazon.com/iam/home?#security_credential
+  # 2. Encrypt each of your Creds with the Travis CLI and paste the result here: travis encrypt YOUR_ACCESS_KEY_OR_KEY_ID
+  access_key_id: 
+    secure: "K4JusMVMoGcp+kBR3d0NTff79ZnEslFd4DNVJRPtrOB/jUyzakYEy2k4pbOzz6pIBQ3otrGeJJxDo4zWx8t9c9PetdsHN8BeF67RkbkKWz8/FjKxpIsFuIA9zuoHK0WX+ACJMIu4FYdP/duMZnHBjeRK4gjumfIobn+wX7I/e+79RHQfn4ihNc+XiL4W0XGwEORyuYSNCVWWyhyvSZLLjrhW/AzxnC6OkHA3cZRAC+W0dH7hvAbt/veMXUro8JxZE5o4/jP6OAw/eoVvbsbcUkdQCkXTK1Qx7tt4v+K9WqidaMNzg6wZyMshSTSvLNhSqiOW9BEdE8Fg+YPZrBuk6i2uTBm1ZlFsGLTL3ot6IBTcrT8ADxP9admxnbIx4hjobqokU1JF04VJvAnZ5LjOQifV59ywZTjfKFzGJlFpm5+2nHaeJwTAfXG/ImJNx2ZwaUy5aQzSljB5cfYJKTRHaQNQ1jT4dTHFXHVFN7kX0WpqsN3JvRMR8bMhnHRB1mF2ll7T9V3a2E6wlCrXb8oC88RC/x0vVnTh7m1CIRiNCcsWI7cAnV/xN6C7e88qcrPF/yLeTz/hB/z60k/Gc27ks5OpNDfHdH6xi54H/75W0jo35+kXuTVTVUoiybWqbnYrqlC5ulEDtqr8MuaqWf92s1SmnioM6gE53Fw0gG4RZz0="
+  secret_access_key: 
+    secure: "EcRdaychm8zs39xl4rCseRs3S+18MFL3JuaouvrVD1fpZZ+PCLT/wwxTBFFxX01bILUHcMODpgXH0tmfgrLpIFtleDZjhPpl5tO334/lJwO/y3zhM/FPArv6/YUZqjjawPKhws/nBVzYvLLJnGjmISH4oYgUUIgayEL7xW6BU68fuE49z3ybRO0pF3DNGmSBqxRgp5OETXRb3tZJBdmT7FVqZlnhmoTeFcJnNBisMCuFJCZ84oQUBJPTnqSgdbFnpLh1CQCyqU5MJ6KKdB1hX+M7s3zW8KiHR2wEGAy5Mj3werDEBuOBnhpphz3TrWT5xFrtPaJkMCFrs/8pGtGQhK1GljNQnjI4X3aVYVccdTMt+VaoEm8dpTk4lc9SdYUI3wWLSo19QN1/Co/D7dxRj7+FxKSLRs4MUcOJLm4K8f93Ev89Ez52EK/EPby0TDglcypOY2cRSGDpPP+uUA5jxIH74pB9E9b/tqo4eXee4uqt1lzDmOs8Vh+evYXweDKuEdVnuRhAb46j2mYmLAjVHzgkcAlTPIItVKQ8eQKVo7O9dmeEvpagMbTcCzztJYNhOlcBFUGZcut8q/NtqnunkhLobcZOy6iqkwTfAf7phctrZkYihYkvNc8gVav6ZV61iAkeNsbXFzVgMR8nhESHIt6bb6gWep2ahwil9mdEBMw="
+  bucket: "proglove-challenge" # The Name of your Bucket
+  skip_cleanup: true # Important! Avoids deleting your build files
+  local-dir: dist/proglove-device-manager # The directory with your build files. Default for Angular CLI is 'dist/your-app-name'
+  region: eu-central-1 # The Region ID of your Bucket - Find the ID here https://docs.aws.amazon.com/de_de/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html
+  acl: public_read # Tells travis to set AWS' ACL to allow public read. 

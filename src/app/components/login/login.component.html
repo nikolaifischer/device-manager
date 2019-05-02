@@ -1,0 +1,19 @@
+<div class="login-container">
+  <mat-card>
+    <h1>Login</h1>
+    <div>
+      <form class="login-form">
+        <mat-form-field>
+          <input name="username" matInput placeholder="Your E-Mail" [(ngModel)]="username">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input name="password" type="password" matInput placeholder="Your Password" [(ngModel)]="password">
+        </mat-form-field>
+        <button type="button" mat-raised-button (click)="onLogin($event)">Login</button>
+      </form>
+      <div *ngIf="showWrongLogin" class="warning"> Wrong Login Information!</div>
+    </div>
+  </mat-card>
+
+</div>

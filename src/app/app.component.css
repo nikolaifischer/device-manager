@@ -1,0 +1,14 @@
+
+mat-toolbar{
+    background-color: #383f49
+}
+
+#logo {
+    max-width: 120px;
+    height: auto;
+}
+.log-out-btn {
+    position: absolute;
+    right: 30px;
+    background-color:#f7881d;
+}

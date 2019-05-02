@@ -1,0 +1,11 @@
+.device-list{
+    margin:auto;
+}
+mat-card {
+    max-width: 400px;
+    margin: 20px auto;
+}
+h1 {
+    margin: 50px auto;
+    text-align: center;
+}

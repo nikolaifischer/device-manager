@@ -1,0 +1,47 @@
+<div>
+  <button (click) = "onBack()" class="back-btn" mat-raised-button><i class="fas fa-arrow-left"></i> Back</button>
+</div>
+<h1>Details</h1>
+<mat-card *ngIf="device">
+  <mat-card-header>
+    <div class="icon" mat-card-avatar><i class="fas fa-microchip"></i></div>
+    <mat-card-title>{{device.serialNr}}</mat-card-title>
+    <mat-card-subtitle>Mark 2</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="info-block">
+      <h2>Battery Level</h2>
+      <span>{{device.soc}}%</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="info-block">
+      <h2>Firmware revision</h2>
+      <span>v1.0.0-rc2</span>
+    </div>
+    <div class="info-block">
+      <h2>Plug & Play ID</h2>
+      <span>02 15 19 ee ee 01 00</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="info-block">
+      <h2>Model</h2>
+      <span>Mark Two</span>
+    </div>
+    <div class="info-block">
+      <h2>Hardware revision</h2>
+      <span>mark_two</span>
+    </div>
+    <div class="info-block">
+      <h2>Serial Number</h2>
+      <span>{{device.serialNr}}</span>
+    </div>
+    <div class="info-block">
+      <h2>Cycles</h2>
+      <span>{{device.cycles}}</span>
+    </div>
+    <div class="info-block">
+      <h2>Last Seen</h2>
+      <span>{{device.lastSeen | date: 'short'}}</span>
+    </div>
+  </mat-card-content>
+</mat-card>

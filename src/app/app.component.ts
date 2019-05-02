@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'proglove-device-manager';
+  loggedIn: boolean;
+  title = 'Proglove Device Manager';
+
+  onLogin() {
+    this.loggedIn = true;
+  }
+  onLogout() {
+    this.loggedIn = false;
+  }
 }
